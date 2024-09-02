@@ -1,6 +1,6 @@
 # A Complex Game
 
-**A Complex Game** is a web-based game where you press a button to increment a hierarchical number displayed in parentheses. The number increases by a specified amount each time you press the button.
+**A Complex Game** is a web-based game where you press a button to increment a hierarchical number displayed in parentheses. The number increases by a specified amount each time you press the button. This is also a Googology game, as LNGI' are very popular, and I thought why not? 
 
 ## Features
 
