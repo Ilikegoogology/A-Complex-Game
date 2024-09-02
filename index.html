@@ -19,24 +19,61 @@
             padding: 10px;
             font-size: 1em;
         }
+        .upgrade-box {
+            margin-top: 30px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            display: inline-block;
+            text-align: left;
+        }
+        .upgrade {
+            margin-bottom: 10px;
+        }
+        .upgrade button {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
     <div id="number-display">(0)</div>
     <button class="button" onclick="increment(1)">+1</button>
-    <button class="button" onclick="increment(1)">+2</button>
-    <button class="button" onclick="increment(1)">+3</button>
-    <button class="button" onclick="increment(1)">+4</button>
     <button class="button" onclick="increment(5)">+5</button>
     <button class="button" onclick="increment(10)">+10</button>
     
+    <div class="upgrade-box">
+        <h3>Upgrades</h3>
+        <div class="upgrade">
+            <span>Unlock +50 - Cost: 150</span>
+            <button onclick="purchaseUpgrade(50, 150)">Buy</button>
+        </div>
+        <div class="upgrade">
+            <span>Production Increase by 2.79% - Cost: 10000</span>
+            <button onclick="purchaseUpgrade(2.79, 10000, true)">Buy</button>
+        </div>
+    </div>
+
     <script>
         let number = 0;
+        let productionIncrease = 0;
         const display = document.getElementById('number-display');
         
         function increment(n) {
-            number += n;
-            display.textContent = `(${number})`;
+            number += n * (1 + productionIncrease / 100);
+            display.textContent = `(${Math.floor(number)})`;
+        }
+
+        function purchaseUpgrade(value, cost, isProductionUpgrade = false) {
+            if (number >= cost) {
+                number -= cost;
+                if (isProductionUpgrade) {
+                    productionIncrease += value;
+                } else {
+                    number += value;
+                }
+                display.textContent = `(${Math.floor(number)})`;
+            } else {
+                alert('Not enough points to purchase this upgrade.');
+            }
         }
     </script>
 </body>
