@@ -12,24 +12,3 @@
 1. Open the `index.html` file in your web browser.
 2. Press one of the buttons labeled `+1`, `+5`, or `+10`.
 3. The number in parentheses will increase by the value associated with the button you pressed.
-
-## Installation
-
-To run the game locally:
-
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/your-username/a-complex-game.git
-2. Navigate to the project directory:
-cd a-complex-game
-Open index.html in your web browser.
-
-## Contributing
-If you'd like to contribute to the project, please follow these steps:
-
-Fork the repository.
-Create a new branch (git checkout -b feature/YourFeature).
-Make your changes.
-Commit your changes (git commit -am 'Add new feature').
-Push to the branch (git push origin feature/YourFeature).
-Create a new Pull Request.
