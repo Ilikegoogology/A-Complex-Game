@@ -58,15 +58,17 @@
             <span>Production Increase by 2.79% - (1500)</span>
             <button onclick="purchaseUpgrade(0.05, 1500, true)">Buy</button>
         </div>
-    <div class="upgrade">
-        <span>Increase Tickspeed by 2.44% - (5000) - </span>
-        <button onclick="purchaseUpgrade(0.75, 5000, true)">Buy</button>
+        <div class="upgrade">
+            <span>Increase Tickspeed by 2.44% - (5000)</span>
+            <button onclick="purchaseUpgrade(0.75, 5000, true)">Buy</button>
+        </div>
     </div>
 
     <script>
         let number = 0;
         let productionSpeed = 4; // Time between increments (lower is faster)
         let productionIncrease = 0; // Additional percentage to increase speed
+        let tickspeedIncrease = 0; // Additional percentage to increase tickspeed
         let upgrade1Purchased = false;
         const display = document.getElementById('number-display');
 
@@ -79,9 +81,15 @@
             if (number >= cost) {
                 number -= cost;
                 if (isProductionUpgrade) {
-                    productionIncrease += value;
-                    productionSpeed = 4 / (1 + productionIncrease); // Adjust production speed
-                    if (productionSpeed < 0.1) productionSpeed = 0.1; // Prevent negative speed
+                    if (value <= 0.05) { // Production increase
+                        productionIncrease += value;
+                        productionSpeed = 4 / (1 + productionIncrease); // Adjust production speed
+                        if (productionSpeed < 0.1) productionSpeed = 0.1; // Prevent negative speed
+                    } else { // Tickspeed increase
+                        tickspeedIncrease += value;
+                        productionSpeed = 4 / (1 + tickspeedIncrease); // Adjust tickspeed
+                        if (productionSpeed < 0.1) productionSpeed = 0.1; // Prevent negative speed
+                    }
                 } else {
                     if (!upgrade1Purchased) {
                         const newButton = document.createElement('button');
