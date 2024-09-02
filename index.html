@@ -35,6 +35,11 @@
         .upgrade button {
             margin-left: 10px;
         }
+        .upgrade-button-disabled {
+            background-color: #ccc;
+            border: 1px solid #aaa;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -47,7 +52,7 @@
         <h3>Upgrades</h3>
         <div class="upgrade">
             <span>Unlock +50 - (150)</span>
-            <button onclick="purchaseUpgrade(50, 150, false)">Buy</button>
+            <button id="upgrade-50" onclick="purchaseUpgrade(50, 150, false)">Buy</button>
         </div>
         <div class="upgrade">
             <span>Production Increase by 2.79% - (10000)</span>
@@ -81,7 +86,9 @@
                         newButton.id = 'increment-50';
                         newButton.textContent = '+50';
                         newButton.onclick = () => increment(50);
-                        document.body.insertBefore(newButton, document.querySelector('.upgrade-box'));
+                        document.querySelector('.upgrade-box').insertBefore(newButton, document.querySelector('.upgrade-box').lastElementChild);
+                        document.getElementById('upgrade-50').classList.add('upgrade-button-disabled');
+                        document.getElementById('upgrade-50').disabled = true;
                         upgrade1Purchased = true;
                     }
                 }
