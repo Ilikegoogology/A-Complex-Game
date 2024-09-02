@@ -9,6 +9,8 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
+            background-color: #1c1769; /* Set background color */
+            color: #ffffff; /* Text color for better readability */
         }
         #number-display {
             font-size: 2em;
@@ -18,13 +20,21 @@
             margin: 5px;
             padding: 10px;
             font-size: 1em;
+            background-color: #ffffff; /* Button background color */
+            color: #1c1769; /* Button text color */
+            border: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #dddddd; /* Button hover color */
         }
         .upgrade-box {
             margin-top: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #dddddd;
             padding: 10px;
             display: inline-block;
             text-align: left;
+            background-color: #ffffff; /* Upgrade box background color */
         }
         .upgrade {
             margin-bottom: 10px;
@@ -56,24 +66,23 @@
         </div>
         <div class="upgrade">
             <span>Production Increase by 2.79% - (1500)</span>
-            <button onclick="purchaseUpgrade(0.05, 1500, true)">Buy</button>
+            <button onclick="purchaseUpgrade(0.0279, 1500, true)">Buy</button>
         </div>
         <div class="upgrade">
             <span>Increase Tickspeed by 2.44% - (5000)</span>
-            <button onclick="purchaseUpgrade(0.75, 5000, true)">Buy</button>
+            <button onclick="purchaseUpgrade(0.0244, 5000, false)">Buy</button>
         </div>
     </div>
 
     <script>
         let number = 0;
-        let productionSpeed = 4; // Time between increments (lower is faster)
-        let productionIncrease = 0; // Additional percentage to increase speed
-        let tickspeedIncrease = 0; // Additional percentage to increase tickspeed
+        let productionMultiplier = 1; // Initial production multiplier
+        let tickspeedIncrease = 0; // Tickspeed increase
         let upgrade1Purchased = false;
         const display = document.getElementById('number-display');
 
         function increment(n) {
-            number += n;
+            number += n * productionMultiplier;
             display.textContent = `(${Math.floor(number)})`;
         }
 
@@ -81,28 +90,26 @@
             if (number >= cost) {
                 number -= cost;
                 if (isProductionUpgrade) {
-                    if (value <= 0.05) { // Production increase
-                        productionIncrease += value;
-                        productionSpeed = 4 / (1 + productionIncrease); // Adjust production speed
-                        if (productionSpeed < 0.1) productionSpeed = 0.1; // Prevent negative speed
-                    } else { // Tickspeed increase
-                        tickspeedIncrease += value;
-                        productionSpeed = 4 / (1 + tickspeedIncrease); // Adjust tickspeed
-                        if (productionSpeed < 0.1) productionSpeed = 0.1; // Prevent negative speed
-                    }
+                    // For production increase, multiply the button multiplier
+                    productionMultiplier *= (1 + value);
                 } else {
-                    if (!upgrade1Purchased) {
-                        const newButton = document.createElement('button');
-                        newButton.className = 'button';
-                        newButton.id = 'increment-50';
-                        newButton.textContent = '+50';
-                        newButton.onclick = () => increment(50);
-                        document.querySelector('.upgrade-box').insertBefore(newButton, document.querySelector('.upgrade-box').lastElementChild);
-                        document.getElementById('upgrade-50').classList.add('upgrade-button-disabled');
-                        document.getElementById('upgrade-50').disabled = true;
-                        upgrade1Purchased = true;
-                    }
+                    // For tickspeed increase, adjust the production multiplier
+                    tickspeedIncrease += value;
+                    productionMultiplier *= (1 / (1 + tickspeedIncrease));
                 }
+                
+                if (!upgrade1Purchased && !isProductionUpgrade) {
+                    const newButton = document.createElement('button');
+                    newButton.className = 'button';
+                    newButton.id = 'increment-50';
+                    newButton.textContent = '+50';
+                    newButton.onclick = () => increment(50);
+                    document.querySelector('.upgrade-box').insertBefore(newButton, document.querySelector('.upgrade-box').lastElementChild);
+                    document.getElementById('upgrade-50').classList.add('upgrade-button-disabled');
+                    document.getElementById('upgrade-50').disabled = true;
+                    upgrade1Purchased = true;
+                }
+
                 display.textContent = `(${Math.floor(number)})`;
             } else {
                 alert('Not enough points to purchase this upgrade.');
