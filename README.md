@@ -1,41 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Complex Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        #number-display {
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-        .button {
-            margin: 5px;
-            padding: 10px;
-            font-size: 1em;
-        }
-    </style>
-</head>
-<body>
-    <div id="number-display">(0)</div>
-    <button class="button" onclick="increment(1)">+1</button>
-    <button class="button" onclick="increment(5)">+5</button>
-    <button class="button" onclick="increment(10)">+10</button>
-    
-    <script>
-        let number = 0;
-        const display = document.getElementById('number-display');
-        
-        function increment(n) {
-            number += n;
-            display.textContent = `(${number})`;
-        }
-    </script>
-</body>
-</html>
+# A Complex Game
 
+**A Complex Game** is a web-based game where you press a button to increment a hierarchical number displayed in parentheses. The number increases by a specified amount each time you press the button.
+
+## Features
+
+- **Increment**: Press buttons to add a specified value to the current number.
+- **Simple UI**: A user-friendly interface with buttons for different increments.
+
+## How to Play
+
+1. Open the `index.html` file in your web browser.
+2. Press one of the buttons labeled `+1`, `+5`, or `+10`.
+3. The number in parentheses will increase by the value associated with the button you pressed.
+
+## Installation
+
+To run the game locally:
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-username/a-complex-game.git
+2. Navigate to the project directory:
+cd a-complex-game
+Open index.html in your web browser.
+
+## Contributing
+If you'd like to contribute to the project, please follow these steps:
+
+Fork the repository.
+Create a new branch (git checkout -b feature/YourFeature).
+Make your changes.
+Commit your changes (git commit -am 'Add new feature').
+Push to the branch (git push origin feature/YourFeature).
+Create a new Pull Request.
