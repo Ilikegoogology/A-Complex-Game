@@ -100,23 +100,5 @@
                 }
                 
                 if (!upgrade1Purchased && !isProductionUpgrade) {
-                    const newButton = document.createElement('button');
-                    newButton.className = 'button';
-                    newButton.id = 'increment-50';
-                    newButton.textContent = '+50';
-                    newButton.onclick = () => increment(50);
-                    document.querySelector('.upgrade-box').appendChild(newButton);
-                    document.getElementById('upgrade-50').classList.add('upgrade-button-disabled');
-                    document.getElementById('upgrade-50').disabled = true;
-                    upgrade1Purchased = true;
-                }
-
-                display.textContent = `(${Math.floor(number)})`;
-            } else {
-                alert('Not enough points to purchase this upgrade.');
-            }
-        }
-    </script>
-</body>
-</html>
- 
+                    // Disable the "+50" upgrade button after purchase
+                    const upgrade50Button = document.getEle
