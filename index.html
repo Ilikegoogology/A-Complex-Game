@@ -20,7 +20,7 @@
             font-size: 1em;
         }
         .upgrade-box {
-            margin-top: 30px;
+            margin-top: 20px;
             border: 1px solid #ddd;
             padding: 10px;
             display: inline-block;
@@ -29,46 +29,61 @@
         .upgrade {
             margin-bottom: 10px;
         }
-        .upgrade button {
+        .upgrade span {
             margin-right: 10px;
+        }
+        .upgrade button {
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
     <div id="number-display">(0)</div>
-    <button class="button" onclick="increment(1)">+1</button>
-    <button class="button" onclick="increment(5)">+5</button>
-    <button class="button" onclick="increment(10)">+10</button>
+    <button class="button" id="increment-1" onclick="increment(1)">+1</button>
+    <button class="button" id="increment-5" onclick="increment(5)">+5</button>
+    <button class="button" id="increment-10" onclick="increment(10)">+10</button>
     
     <div class="upgrade-box">
         <h3>Upgrades</h3>
         <div class="upgrade">
-            <span>Unlock +50 - Cost: 150</span>
-            <button onclick="purchaseUpgrade(50, 150)">Buy</button>
+            <span>Unlock +50 - (150)</span>
+            <button onclick="purchaseUpgrade(50, 150, false)">Buy</button>
         </div>
         <div class="upgrade">
-            <span>Production Increase by 2.79% - Cost: 10000</span>
-            <button onclick="purchaseUpgrade(2.79, 10000, true)">Buy</button>
+            <span>Production Increase by 2.79% - (10000)</span>
+            <button onclick="purchaseUpgrade(0.05, 10000, true)">Buy</button>
         </div>
     </div>
 
     <script>
         let number = 0;
-        let productionIncrease = 0;
+        let productionSpeed = 4; // Time between increments (lower is faster)
+        let productionIncrease = 0; // Additional percentage to increase speed
+        let upgrade1Purchased = false;
         const display = document.getElementById('number-display');
-        
+
         function increment(n) {
-            number += n * (1 + productionIncrease / 100);
+            number += n;
             display.textContent = `(${Math.floor(number)})`;
         }
 
-        function purchaseUpgrade(value, cost, isProductionUpgrade = false) {
+        function purchaseUpgrade(value, cost, isProductionUpgrade) {
             if (number >= cost) {
                 number -= cost;
                 if (isProductionUpgrade) {
                     productionIncrease += value;
+                    productionSpeed = 4 / (1 + productionIncrease); // Adjust production speed
+                    if (productionSpeed < 0.1) productionSpeed = 0.1; // Prevent negative speed
                 } else {
-                    number += value;
+                    if (!upgrade1Purchased) {
+                        const newButton = document.createElement('button');
+                        newButton.className = 'button';
+                        newButton.id = 'increment-50';
+                        newButton.textContent = '+50';
+                        newButton.onclick = () => increment(50);
+                        document.body.insertBefore(newButton, document.querySelector('.upgrade-box'));
+                        upgrade1Purchased = true;
+                    }
                 }
                 display.textContent = `(${Math.floor(number)})`;
             } else {
