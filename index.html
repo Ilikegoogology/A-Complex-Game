@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
-            background-color: #1c1769; /* Set background color */
+            background-color: #1c1769; /* Page background color */
             color: #ffffff; /* Text color for better readability */
         }
         #number-display {
@@ -30,11 +30,12 @@
         }
         .upgrade-box {
             margin-top: 20px;
-            border: 1px solid #ffffff;
+            border: 1px solid #dddddd;
             padding: 10px;
             display: inline-block;
             text-align: left;
             background-color: #1c1769; /* Upgrade box background color */
+            color: #ffffff; /* Upgrade box text color */
         }
         .upgrade {
             margin-bottom: 10px;
@@ -104,7 +105,7 @@
                     newButton.id = 'increment-50';
                     newButton.textContent = '+50';
                     newButton.onclick = () => increment(50);
-                    document.querySelector('.upgrade-box').insertBefore(newButton, document.querySelector('.upgrade-box').lastElementChild);
+                    document.querySelector('.upgrade-box').appendChild(newButton);
                     document.getElementById('upgrade-50').classList.add('upgrade-button-disabled');
                     document.getElementById('upgrade-50').disabled = true;
                     upgrade1Purchased = true;
@@ -118,3 +119,4 @@
     </script>
 </body>
 </html>
+ 
