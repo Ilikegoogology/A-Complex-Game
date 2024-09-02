@@ -10,3 +10,4 @@
 ## How to Play
 1. Press one of the buttons labeled `+1`, `+5`, or `+10`.
 2. The number will increase by the value associated with the button you pressed.
+3. Get upgrades
